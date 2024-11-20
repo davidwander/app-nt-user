@@ -30,7 +30,7 @@ export default function Layout() {
         translucent={true}
         barStyle="light-content"
       />
-      <Slot />
+      {fontsLoaded && <Slot />}
     </GestureHandlerRootView>
   )
 }
