@@ -1,3 +1,4 @@
+import { theme } from "@/theme"
 import { ImageBackground, Text, StyleSheet } from "react-native"
 
 export default function Home() {
@@ -23,5 +24,6 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
+    fontFamily: theme.fontFamily.medium,
   },
 })
