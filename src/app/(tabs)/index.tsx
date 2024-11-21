@@ -42,7 +42,7 @@ export default function Home() {
     Animated.sequence([
       Animated.timing(fadeAnim, {
         toValue: 1,
-        duration: 2000,
+        duration: 2500,
         useNativeDriver: true,
       }),
 
