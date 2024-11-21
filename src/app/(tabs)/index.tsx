@@ -1,12 +1,10 @@
 import { useEffect, useState, useRef } from "react";
-import { theme } from "@/theme";
 import {
   Dimensions,
-  FlatList,
   ImageBackground,
   StyleSheet,
   View,
-  Image,
+  Animated,
 } from "react-native";
 
 const { width } = Dimensions.get("window");
@@ -28,25 +26,33 @@ const images = [
 
 export default function Home() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const flatListRef = useRef<FlatList<any>>(null);
+  const fadeAnim = useRef(new Animated.Value(0)).current;
 
-  // Intervalo para troca automática de imagens no carrossel
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) =>
         prevIndex === images.length - 1 ? 0 : prevIndex + 1
       );
-    }, 3000);
+    }, 6000);
 
-    return () => clearInterval(interval); // Limpa o intervalo ao desmontar
+    return () => clearInterval(interval); 
   }, []);
 
-  // Atualiza o índice do carrossel
   useEffect(() => {
-    flatListRef.current?.scrollToIndex({
-      index: currentIndex,
-      animated: true,
-    });
+    Animated.sequence([
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 2000,
+        useNativeDriver: true,
+      }),
+
+      Animated.timing(fadeAnim, {
+        toValue: 0,
+        duration: 2000,
+        delay: 2000,
+        useNativeDriver: true,
+      }),
+    ]).start();
   }, [currentIndex]);
 
   return (
@@ -55,16 +61,9 @@ export default function Home() {
       style={styles.background}
     >
       <View style={styles.carouselContainer}>
-        <FlatList
-          data={images}
-          horizontal
-          pagingEnabled
-          showsHorizontalScrollIndicator={false}
-          ref={flatListRef}
-          renderItem={({ item }) => (
-            <Image source={item} style={styles.image} />
-          )}
-          keyExtractor={(_, index) => index.toString()}
+        <Animated.Image
+          source={images[currentIndex]}
+          style={[styles.image, { opacity: fadeAnim}]}
         />
       </View>
     </ImageBackground>
@@ -87,6 +86,5 @@ const styles = StyleSheet.create({
     width,
     height: 350,
     resizeMode: "cover",
-    borderRadius: 10,
   },
 });
