@@ -1,13 +1,16 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react"
 import {
   Dimensions,
   ImageBackground,
   StyleSheet,
   View,
   Animated,
-} from "react-native";
+  Image,
+  Linking,
+} from "react-native"
+import { Fontisto } from "@expo/vector-icons"
 
-const { width } = Dimensions.get("window");
+const { width } = Dimensions.get("window")
 
 const images = [
   require("../../assets/photos/bohoBraids.jpeg"),
@@ -55,15 +58,35 @@ export default function Home() {
     ]).start();
   }, [currentIndex]);
 
+  const openInstagram = () => {
+    const instagramUrl = "https://www.instagram.com/negas.do.tuim/";
+    Linking.openURL(instagramUrl).catch((err) => {
+      console.error("Erro ao abrir o link:", err);
+    })
+  }
+
   return (
     <ImageBackground
       source={require("../../assets/images/bg1.jpeg")}
       style={styles.background}
     >
+      <View style={styles.header}>
+        <Image source={require("../../assets/images/nt-logo.png")}
+        style={styles.imageHeader}
+        />
+      </View>
       <View style={styles.carouselContainer}>
         <Animated.Image
           source={images[currentIndex]}
           style={[styles.image, { opacity: fadeAnim}]}
+        />
+      </View>
+      <View style={styles.footer}>
+        <Fontisto
+          name="instagram"
+          size={40}
+          color="white"
+          onPress={openInstagram}
         />
       </View>
     </ImageBackground>
@@ -72,6 +95,10 @@ export default function Home() {
 
 const styles = StyleSheet.create({
   background: {
+    flex: 1,
+
+  },
+  header: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
@@ -85,6 +112,15 @@ const styles = StyleSheet.create({
   image: {
     width,
     height: 350,
-    resizeMode: "cover",
+  },
+  imageHeader: {
+    width: 400,
+    height: 400,
+    marginBottom: 20,
+  },
+  footer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
