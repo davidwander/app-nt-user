@@ -4,7 +4,7 @@
     "slug": "nt-user",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon-nt.png",
+    "icon": "./assets/images/nt-logo.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
