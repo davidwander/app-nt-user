@@ -7,7 +7,7 @@ import {
   Octicons,
   AntDesign,
   Fontisto,
-  FontAwesome5
+  Ionicons
 } from "@expo/vector-icons"
 
 import { BlurView } from "expo-blur"
@@ -52,7 +52,7 @@ export default function TabLayout() {
           name="menu"
           options={{
             tabBarIcon: ({ size, color }) =>
-              <FontAwesome5 name="calendar-times" size={size} color={color}
+              <Ionicons name="calendar-outline" size={size} color={color}
               />
           }}
           listeners={() => ({
@@ -80,7 +80,7 @@ export default function TabLayout() {
         />
       </Tabs>
 
-      <Menu ref={bottomSheetRef} onClose={() => {}} />
+      <Menu ref={bottomSheetRef} onClose={handleBottomSheetClose} />
     </View>
   )
 }
