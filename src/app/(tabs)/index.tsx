@@ -96,7 +96,6 @@ export default function Home() {
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-
   },
   header: {
     flex: 1,
