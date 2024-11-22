@@ -1,9 +1,15 @@
-import { theme } from "@/theme"
 import { StyleSheet } from "react-native"
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: theme.colors.color5,
+    borderRadius: 20
+  },
+  backgroundImage: {
+    flex: 1,
+    resizeMode: "cover",
+  },
+  imageBackground: {
+    borderRadius: 20,
   },
   content: {
     flex: 1,

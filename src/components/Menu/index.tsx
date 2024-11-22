@@ -1,5 +1,5 @@
 import { forwardRef } from  "react"
-import { View, Text } from "react-native"
+import { View, ImageBackground } from "react-native"
 import BottomSheet from "@gorhom/bottom-sheet"
 import { Fontisto } from  "@expo/vector-icons"
 
@@ -16,16 +16,22 @@ export const Menu = forwardRef<BottomSheet, MenuProps>(({ onClose }, ref) => {
       backgroundStyle={styles.container}
       handleComponent={() => null}
     >
-      <View style={styles.content}>
-        <View style={styles.header}>
-          <Fontisto
-            name="close"
-            size={24}
-            onPress={onClose}
-            style={styles.icon}
-          />
+      <ImageBackground
+        source={require("../../assets/images/bg2.jpeg")}
+        style={styles.backgroundImage}
+        imageStyle={styles.imageBackground}
+      >
+        <View style={styles.content}>
+          <View style={styles.header}>
+            <Fontisto
+              name="close"
+              size={24}
+              onPress={onClose}
+              style={styles.icon}
+            />
+          </View>
         </View>
-      </View>
+      </ImageBackground>
     </BottomSheet>
   )
 })
