@@ -1,10 +1,13 @@
 import { Slot } from "expo-router"
-import { StatusBar } from "react-native"
+import { StatusBar, StyleSheet, ImageBackground, View } from "react-native"
 import { GestureHandlerRootView } from "react-native-gesture-handler"
 import * as SplashScreen from "expo-splash-screen"
 
-import { createDrawerNavigator } from "@react-navigation/drawer"
-import Home from "./(tabs)/index"
+import {
+  createDrawerNavigator,
+  DrawerContentComponentProps,
+  DrawerItemList
+} from "@react-navigation/drawer"
 
 import {
   useFonts,
@@ -15,6 +18,23 @@ import {
 
 SplashScreen.preventAutoHideAsync()
 const Drawer = createDrawerNavigator()
+
+function CustomDrawerContent(props: DrawerContentComponentProps) {
+  return (
+    <ImageBackground
+      source={require("../assets/images/bg2.jpeg")}
+      style={styles.background}
+    >
+      <View style={styles.drawerContent}>
+        <DrawerItemList {...props} />
+      </View>
+    </ImageBackground>
+  )
+}
+
+function RenderSlot() {
+  return <Slot />
+}
 
 export default function Layout() {
   const [fontsLoaded] = useFonts({
@@ -36,14 +56,47 @@ export default function Layout() {
       />
       {fontsLoaded && (
         <Drawer.Navigator
-          initialRouteName="Home"
+          initialRouteName="Profile"
           screenOptions={{
             headerShown: false,
+            drawerStyle: {
+              backgroundColor: "transparent",
+            }
           }}
+          drawerContent={(props) => <CustomDrawerContent {...props} />}
         >
-          <Drawer.Screen name="Home" component={Slot} />
+          <Drawer.Screen
+            name="Profile"
+            component={RenderSlot}
+          />
+          <Drawer.Screen
+            name="Chat"
+            component={RenderSlot}
+          />
+          <Drawer.Screen
+            name="Search"
+            component={RenderSlot}
+          />
+          <Drawer.Screen
+            name="Scheduling"
+            component={RenderSlot}
+          />
         </Drawer.Navigator>
       )}
     </GestureHandlerRootView>
   )
 }
+
+const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    resizeMode: "cover",
+  },
+  drawerContent: {
+    flex: 1,
+    padding: 28,
+  },
+  drawerItem: {
+    
+  }
+})
