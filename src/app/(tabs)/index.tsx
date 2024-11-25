@@ -7,10 +7,15 @@ import {
   Animated,
   Image,
   Linking,
+  TouchableOpacity,
 } from "react-native"
 import { Fontisto } from "@expo/vector-icons"
-
+import { useNavigation } from "@react-navigation/native"
+import { DrawerNavigationProp } from "@react-navigation/drawer"
+ 
 const { width } = Dimensions.get("window")
+
+type NavigationProps = DrawerNavigationProp<any>
 
 const images = [
   require("../../assets/photos/bohoBraids.jpeg"),
@@ -30,6 +35,7 @@ const images = [
 export default function Home() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const fadeAnim = useRef(new Animated.Value(0)).current;
+  const navigation = useNavigation<NavigationProps>()
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -89,6 +95,12 @@ export default function Home() {
           onPress={openInstagram}
         />
       </View>
+      <TouchableOpacity
+        style={styles.drawerButton}
+        onPress={() => navigation.openDrawer()}
+      >
+        <Fontisto name="nav-icon-list-a" size={24} color="white" />
+      </TouchableOpacity>
     </ImageBackground>
   );
 }
@@ -122,4 +134,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  drawerButton: {
+    position: "absolute",
+    top: 70,
+    left: 10,
+  }
 });

@@ -3,6 +3,9 @@ import { StatusBar } from "react-native"
 import { GestureHandlerRootView } from "react-native-gesture-handler"
 import * as SplashScreen from "expo-splash-screen"
 
+import { createDrawerNavigator } from "@react-navigation/drawer"
+import Home from "./(tabs)/index"
+
 import {
   useFonts,
   Poppins_400Regular,
@@ -11,6 +14,7 @@ import {
 } from "@expo-google-fonts/poppins"
 
 SplashScreen.preventAutoHideAsync()
+const Drawer = createDrawerNavigator()
 
 export default function Layout() {
   const [fontsLoaded] = useFonts({
@@ -30,7 +34,16 @@ export default function Layout() {
         translucent={true}
         barStyle="light-content"
       />
-      {fontsLoaded && <Slot />}
+      {fontsLoaded && (
+        <Drawer.Navigator
+          initialRouteName="Home"
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
+          <Drawer.Screen name="Home" component={Slot} />
+        </Drawer.Navigator>
+      )}
     </GestureHandlerRootView>
   )
 }
