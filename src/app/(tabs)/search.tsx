@@ -1,10 +1,15 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ImageBackground } from "react-native";
 
 export default function Search() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Search</Text>
-    </View>
+    <ImageBackground
+      style={{ flex: 1 }}
+      source={require("../../assets/images/bg2.jpeg")}
+    >
+      <View style={styles.container}>
+        <Text style={styles.title}>Search</Text>
+      </View>
+    </ImageBackground>
   )
 }
 

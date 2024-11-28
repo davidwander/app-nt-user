@@ -9,7 +9,7 @@ import {
   Linking,
   TouchableOpacity,
 } from "react-native"
-import { Fontisto } from "@expo/vector-icons"
+import { Fontisto, Feather } from "@expo/vector-icons"
 import { useNavigation } from "@react-navigation/native"
 import { DrawerNavigationProp } from "@react-navigation/drawer"
  
@@ -48,20 +48,18 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    Animated.sequence([
       Animated.timing(fadeAnim, {
         toValue: 1,
         duration: 2500,
         useNativeDriver: true,
-      }),
-
-      Animated.timing(fadeAnim, {
-        toValue: 0,
-        duration: 2000,
-        delay: 2000,
-        useNativeDriver: true,
-      }),
-    ]).start();
+      }).start(() => {
+        Animated.timing(fadeAnim, {
+          toValue: 0,
+          duration: 1800,
+          delay: 2000,
+          useNativeDriver: true,
+        }).start();
+    });
   }, [currentIndex]);
 
   const openInstagram = () => {
@@ -99,7 +97,11 @@ export default function Home() {
         style={styles.drawerButton}
         onPress={() => navigation.openDrawer()}
       >
-        <Fontisto name="nav-icon-list-a" size={24} color="white" />
+        <Feather
+          name="menu"
+          size={38}
+          color="white"
+        />
       </TouchableOpacity>
     </ImageBackground>
   );
@@ -136,7 +138,7 @@ const styles = StyleSheet.create({
   },
   drawerButton: {
     position: "absolute",
-    top: 70,
-    left: 10,
+    top: 62,
+    left: 8,
   }
 });

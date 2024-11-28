@@ -1,7 +1,7 @@
 import { forwardRef } from  "react"
 import { View, ImageBackground } from "react-native"
 import BottomSheet from "@gorhom/bottom-sheet"
-import { Fontisto } from  "@expo/vector-icons"
+import { AntDesign } from  "@expo/vector-icons"
 
 
 import { MenuProps } from "./menu"
@@ -23,9 +23,9 @@ export const Menu = forwardRef<BottomSheet, MenuProps>(({ onClose }, ref) => {
       >
         <View style={styles.content}>
           <View style={styles.header}>
-            <Fontisto
-              name="close"
-              size={24}
+            <AntDesign
+              name="down"
+              size={26}
               onPress={onClose}
               style={styles.icon}
             />

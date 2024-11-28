@@ -5,8 +5,6 @@ import BottomSheet from "@gorhom/bottom-sheet"
 
 import {
   Octicons,
-  AntDesign,
-  Fontisto,
   Ionicons
 } from "@expo/vector-icons"
 
@@ -27,8 +25,8 @@ export default function TabLayout() {
       <Tabs screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
-        tabBarInactiveTintColor: theme.colors.color3,
-        tabBarActiveTintColor: theme.colors.color5,
+        tabBarInactiveTintColor: theme.colors.color5,
+        tabBarActiveTintColor: theme.colors.color3,
         tabBarStyle: {
           position: "absolute",
           backgroundColor: "transparent",
@@ -43,16 +41,22 @@ export default function TabLayout() {
         <Tabs.Screen
           name="index"
           options={{
-            tabBarIcon: ({ size, color }) =>
-              <AntDesign name="home" size={size} color={color}
+            tabBarIcon: ({ color }) =>
+              <Octicons
+                name="home"
+                size={29}
+                color={color}
               />
           }}
         />
         <Tabs.Screen
           name="menu"
           options={{
-            tabBarIcon: ({ size, color }) =>
-              <Ionicons name="calendar-outline" size={size} color={color}
+            tabBarIcon: ({ color }) =>
+              <Ionicons
+                name="calendar-outline"
+                size={30}
+                color={color}
               />
           }}
           listeners={() => ({
@@ -65,16 +69,22 @@ export default function TabLayout() {
         <Tabs.Screen
           name="chat"
           options={{
-            tabBarIcon: ({ size, color }) =>
-              <Fontisto name="hipchat" size={size} color={color}
+            tabBarIcon: ({ color }) =>
+              <Ionicons
+                name="chatbox-ellipses-outline"
+                size={31}
+                color={color}
               />
           }}
         />
         <Tabs.Screen
           name="search"
           options={{
-            tabBarIcon: ({ size, color }) => 
-              <Octicons name="search" size={size} color={color}
+            tabBarIcon: ({ color }) => 
+              <Octicons
+                name="search"
+                size={30}
+                color={color}
               />
           }}
         />
