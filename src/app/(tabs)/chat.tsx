@@ -13,7 +13,7 @@ import {
   Keyboard,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-import { theme } from "@/theme";
+import { theme } from "../../theme";
 
 
 const messagesData = [

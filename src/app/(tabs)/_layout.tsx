@@ -10,9 +10,9 @@ import {
 
 import { BlurView } from "expo-blur"
 import { StyleSheet, View } from "react-native"
-import { theme } from "@/theme"
+import { theme } from "../../theme"
 
-import { Menu } from "@/components/Menu"
+import { Menu } from "../../components/Menu"
 
 export default function TabLayout() {
   const bottomSheetRef = useRef<BottomSheet>(null)

@@ -20,5 +20,16 @@ export const styles = StyleSheet.create({
   },
   icon: {
     justifyContent: "flex-end",
+  },
+  iconContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+    width: "80%",
+    paddingHorizontal: 20,
+    marginTop: 20,
+  },
+  iconButton: {
+    alignItems: "center"
   }
 })

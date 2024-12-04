@@ -1,13 +1,22 @@
-import { forwardRef } from  "react"
-import { View, ImageBackground } from "react-native"
-import BottomSheet from "@gorhom/bottom-sheet"
-import { AntDesign } from  "@expo/vector-icons"
-
-
-import { MenuProps } from "./menu"
-import { styles } from "./styles"
+import { forwardRef } from "react";
+import { View, ImageBackground, Text } from "react-native";
+import BottomSheet from "@gorhom/bottom-sheet";
+import { AntDesign } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native"; 
+import { MenuProps } from "./menu";
+import { styles } from "./styles";
 
 export const Menu = forwardRef<BottomSheet, MenuProps>(({ onClose }, ref) => {
+  const navigation = useNavigation(); 
+
+  const handleNavigate = () => {
+    onClose(); 
+    setTimeout(() => {
+      
+      navigation.navigate("schedule"); 
+    }, 300);
+  };
+
   return (
     <BottomSheet
       ref={ref}
@@ -24,14 +33,23 @@ export const Menu = forwardRef<BottomSheet, MenuProps>(({ onClose }, ref) => {
         <View style={styles.content}>
           <View style={styles.header}>
             <AntDesign
-              name="down"
+              name="close"
               size={26}
               onPress={onClose}
               style={styles.icon}
             />
+            <View style={styles.iconContainer}>
+              <AntDesign
+                name="calendar"
+                size={30}
+                color="#000"
+                onPress={handleNavigate} // Navegação ao clicar
+              />
+              <Text>Agendar</Text>
+            </View>
           </View>
         </View>
       </ImageBackground>
     </BottomSheet>
-  )
-})
+  );
+});
