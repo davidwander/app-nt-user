@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native"
+import { theme } from "../../theme"
 
 export const styles = StyleSheet.create({
   container: {
@@ -22,7 +23,7 @@ export const styles = StyleSheet.create({
     justifyContent: "flex-end",
   },
   iconContainer: {
-    flexDirection: "row",
+    flexDirection: "column",
     justifyContent: "space-around",
     alignItems: "center",
     width: "80%",
@@ -31,5 +32,9 @@ export const styles = StyleSheet.create({
   },
   iconButton: {
     alignItems: "center"
+  },
+  iconText: {
+    fontSize: 16,
+    fontFamily: theme.fontFamily.medium
   }
 })

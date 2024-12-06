@@ -3,18 +3,25 @@ import { View, ImageBackground, Text } from "react-native";
 import BottomSheet from "@gorhom/bottom-sheet";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native"; 
+import { StackNavigationProp } from "@react-navigation/stack";
 import { MenuProps } from "./menu";
 import { styles } from "./styles";
 
+type RootStackParamList = {
+  schedule: undefined;
+};
+
+type NavigationProp = StackNavigationProp<RootStackParamList, "schedule">;
+
 export const Menu = forwardRef<BottomSheet, MenuProps>(({ onClose }, ref) => {
-  const navigation = useNavigation(); 
+  const navigation = useNavigation<NavigationProp>(); 
 
   const handleNavigate = () => {
-    onClose(); 
+    onClose?.(); 
     setTimeout(() => {
       
       navigation.navigate("schedule"); 
-    }, 300);
+    }, 200);
   };
 
   return (
@@ -43,9 +50,9 @@ export const Menu = forwardRef<BottomSheet, MenuProps>(({ onClose }, ref) => {
                 name="calendar"
                 size={30}
                 color="#000"
-                onPress={handleNavigate} // Navegação ao clicar
+                onPress={handleNavigate} 
               />
-              <Text>Agendar</Text>
+              <Text style={styles.iconText}>Agendar</Text>
             </View>
           </View>
         </View>
