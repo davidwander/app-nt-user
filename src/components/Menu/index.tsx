@@ -1,7 +1,7 @@
 import { forwardRef } from "react";
 import { View, ImageBackground, Text } from "react-native";
 import BottomSheet from "@gorhom/bottom-sheet";
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native"; 
 import { StackNavigationProp } from "@react-navigation/stack";
 import { MenuProps } from "./menu";
@@ -9,6 +9,8 @@ import { styles } from "./styles";
 
 type RootStackParamList = {
   schedule: undefined;
+  models: undefined;
+  payment: undefined;
 };
 
 type NavigationProp = StackNavigationProp<RootStackParamList, "schedule">;
@@ -53,6 +55,22 @@ export const Menu = forwardRef<BottomSheet, MenuProps>(({ onClose }, ref) => {
                 onPress={handleNavigate} 
               />
               <Text style={styles.iconText}>Agendar</Text>
+              
+                <Feather 
+                  name="list"
+                  size={30}
+                  color="#000"
+                  onPress={() => navigation.navigate("models")}
+                />
+                <Text style={styles.iconText}>Modelos</Text>
+              
+                <Feather 
+                  name="dollar-sign"
+                  size={30}
+                  onPress={() => navigation.navigate("payment") }
+                />
+                <Text>Sinal</Text>
+              
             </View>
           </View>
         </View>

@@ -29,6 +29,7 @@ export const styles = StyleSheet.create({
     width: "80%",
     paddingHorizontal: 20,
     marginTop: 20,
+    gap: 6,
   },
   iconButton: {
     alignItems: "center"
