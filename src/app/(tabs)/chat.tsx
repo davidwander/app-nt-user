@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   SafeAreaView,
   View,
@@ -58,7 +58,6 @@ export default function Chat() {
       </View>
     );
   };
-
 
   return (
     <SafeAreaView style={styles.container}>

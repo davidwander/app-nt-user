@@ -1,18 +1,18 @@
-import { useRef } from "react"
+import { useRef } from "react";
 
-import { Tabs } from "expo-router"
-import BottomSheet from "@gorhom/bottom-sheet"
+import { Tabs } from "expo-router";
+import BottomSheet from "@gorhom/bottom-sheet";
 
 import {
   Octicons,
   Ionicons
-} from "@expo/vector-icons"
+} from "@expo/vector-icons";
 
-import { BlurView } from "expo-blur"
-import { StyleSheet, View } from "react-native"
-import { theme } from "../../theme"
+import { BlurView } from "expo-blur";
+import { StyleSheet, View } from "react-native";
+import { theme } from "../../theme";
 
-import { Menu } from "../../components/Menu"
+import { Menu } from "../../components/Menu";
 
 export default function TabLayout() {
   const bottomSheetRef = useRef<BottomSheet>(null)
