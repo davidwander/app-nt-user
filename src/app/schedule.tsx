@@ -52,7 +52,12 @@ export default function Schedule() {
         style={styles.backButton}
         onPress={() => navigation.goBack()}
       >
-        <Feather name="chevron-left" size={32} color="white" />
+        <Feather 
+          name="chevron-left" 
+          size={32} 
+          color="white" 
+          style={styles.icon}
+        />
       </TouchableOpacity>
       <View style={styles.content}>
         <Calendar
@@ -268,5 +273,12 @@ const styles = StyleSheet.create({
     top: 35,
     left: 8,
     zIndex: 100,
+    backgroundColor: "rgba(0,0,0,0.5)",
+    borderRadius: 40,
+  },
+  icon: {
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 3
   }
 });
