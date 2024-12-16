@@ -1,5 +1,5 @@
 import { Slot } from "expo-router"
-import { StatusBar, StyleSheet, ImageBackground, View } from "react-native"
+import { StatusBar, StyleSheet, ImageBackground, View, Image } from "react-native"
 import { GestureHandlerRootView } from "react-native-gesture-handler"
 import * as SplashScreen from "expo-splash-screen"
 
@@ -26,6 +26,12 @@ function CustomDrawerContent(props: DrawerContentComponentProps) {
       style={styles.background}
     >
       <View style={styles.drawerContent}>
+        <View style={styles.avatarContainer}>
+          <Image  
+            source={require("../assets/images/nt-logo.png")}
+            style={styles.avatar}
+          />
+        </View>
         <DrawerItemList {...props} />
       </View>
     </ImageBackground>
@@ -69,6 +75,11 @@ export default function Layout() {
             name="Profile"
             component={RenderSlot}
           />
+
+          <Drawer.Screen
+            name="MyAppointments"
+            component={RenderSlot}
+          />
           <Drawer.Screen
             name="Chat"
             component={RenderSlot}
@@ -97,6 +108,23 @@ const styles = StyleSheet.create({
     padding: 28,
   },
   drawerItem: {
-    
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingTop: 16,
+  },
+  avatarContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 24,
+    marginBottom: 20,
+  },
+  avatar: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: "#7f486f",
+    borderWidth: 2,
+    borderColor: "#fff",
   }
 })
