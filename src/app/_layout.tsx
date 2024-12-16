@@ -6,8 +6,7 @@ import * as SplashScreen from "expo-splash-screen"
 import {
   createDrawerNavigator,
   DrawerContentComponentProps,
-  DrawerItemList
-} from "@react-navigation/drawer"
+  DrawerItemList} from "@react-navigation/drawer"
 
 import {
   useFonts,
@@ -15,6 +14,12 @@ import {
   Poppins_500Medium,
   Poppins_700Bold
 } from "@expo-google-fonts/poppins"
+
+// Importe as páginas para navegação
+import MyAppointments from "../app/myAppointments"
+import Chat from "../app/(tabs)/chat"
+import Search from "../app/(tabs)/search"
+import Scheduling from "../app/schedule"
 
 SplashScreen.preventAutoHideAsync()
 const Drawer = createDrawerNavigator()
@@ -62,7 +67,7 @@ export default function Layout() {
       />
       {fontsLoaded && (
         <Drawer.Navigator
-          initialRouteName="Profile"
+          initialRouteName="Inicio"
           screenOptions={{
             headerShown: false,
             drawerStyle: {
@@ -71,26 +76,30 @@ export default function Layout() {
           }}
           drawerContent={(props) => <CustomDrawerContent {...props} />}
         >
+          {/* Modifique para usar as páginas importadas diretamente */}
           <Drawer.Screen
-            name="Profile"
+            name="Inicio"
             component={RenderSlot}
           />
 
           <Drawer.Screen
-            name="MyAppointments"
-            component={RenderSlot}
+            name="Meus agendamentos"
+            component={MyAppointments}
           />
+          
           <Drawer.Screen
-            name="Chat"
-            component={RenderSlot}
+            name="Mensagens"
+            component={Chat}
           />
+          
           <Drawer.Screen
-            name="Search"
-            component={RenderSlot}
+            name="Agendamento"
+            component={Scheduling}
           />
+
           <Drawer.Screen
-            name="Scheduling"
-            component={RenderSlot}
+            name="Procurar"
+            component={Search}
           />
         </Drawer.Navigator>
       )}
