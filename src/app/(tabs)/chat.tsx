@@ -13,7 +13,6 @@ import {
   Keyboard,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-import { theme } from "../../theme";
 import BackButton from "../../components/Goback";
 
 const messagesData = [
@@ -25,20 +24,20 @@ type Message = {
   id: string;
   text: string;
   sender: string;
-}
+};
 
 export default function Chat() {
-  const [messages, setMessages] = useState(messagesData);
+  const [messages, setMessages] = useState<Message[]>(messagesData);
   const [messageText, setMessageText] = useState("");
 
   const handleSend = () => {
     if (messageText.trim()) {
-      const newMessage = {
+      const newMessage: Message = {
         id: Date.now().toString(),
         text: messageText,
         sender: "user",
       };
-      setMessages((prevMessages) => [...prevMessages, newMessage]);
+      setMessages((prevMessages) => [newMessage, ...prevMessages]); // Inserir no início
       setMessageText("");
       Keyboard.dismiss();
     }
@@ -46,15 +45,16 @@ export default function Chat() {
 
   const renderMessage = ({ item }: { item: Message }) => {
     const isUser = item.sender === "user";
-
     return (
-      <View
-        style={[
-          styles.messageContainer,
-          item.sender === "user" ? styles.userMessage : styles.botMessage,
-        ]}
-      >
-        <Text style={styles.messageText}>{item.text}</Text>
+      <View style={styles.messageWrapper}>
+        <View
+          style={[
+            styles.messageBubble,
+            isUser ? styles.userMessage : styles.botMessage,
+          ]}
+        >
+          <Text style={styles.messageText}>{item.text}</Text>
+        </View>
       </View>
     );
   };
@@ -63,26 +63,19 @@ export default function Chat() {
     <SafeAreaView style={styles.container}>
       <ImageBackground
         style={styles.background}
-        source={require("../../assets/images/bg1.jpeg")} 
+        source={require("../../assets/images/bg1.jpeg")}
       >
         <BackButton />
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
           style={styles.chatContainer}
         >
-          <FlatList<Message>
+          <FlatList
             data={messages}
             renderItem={renderMessage}
             keyExtractor={(item) => item.id}
-            contentContainerStyle={[
-              styles.messagesList,
-              {
-                paddingBottom: 80,
-                paddingTop: messages.length > 60 ? 10 : 60,
-              },
-            ]}
-            ListFooterComponent={<View style={{ height: 50 }} />}
-            inverted 
+            contentContainerStyle={styles.messagesList}
+            inverted
           />
           <View style={styles.inputContainer}>
             <TextInput
@@ -92,7 +85,7 @@ export default function Chat() {
               onChangeText={setMessageText}
             />
             <TouchableOpacity onPress={handleSend} style={styles.sendButton}>
-              <FontAwesome name="send" size={24} color="white" />
+              <FontAwesome name="send" size={20} color="white" />
             </TouchableOpacity>
           </View>
         </KeyboardAvoidingView>
@@ -104,7 +97,6 @@ export default function Chat() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingBottom: 50,
     backgroundColor: "#D3D3D3",
   },
   background: {
@@ -117,85 +109,73 @@ const styles = StyleSheet.create({
   },
   messagesList: {
     flexGrow: 1,
-    justifyContent: "flex-end", 
-    paddingBottom: 80, 
+    paddingHorizontal: 10,
+    paddingBottom: 80,
   },
-  messageContainer: {
+  messageWrapper: {
+    marginVertical: 5,
+  },
+  messageBubble: {
     maxWidth: "80%",
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 10,
-    borderColor: "#ddd",
-    elevation: 8, 
-    marginLeft: 8,
-    marginRight: 8,
-    backgroundColor: "#f1f1f1",
-    shadowColor: "#000",
-    shadowOffset: { width: 4, height: 10 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
+    padding: 15,
+    borderRadius: 20,
+    position: "relative",
   },
   userMessage: {
     alignSelf: "flex-end",
-    backgroundColor: "#D3D3D3",
-    color: theme.colors.white,
-    fontFamily: theme.fontFamily.regular,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    borderBottomLeftRadius: 20,
+    backgroundColor: "#4caf50",
+    padding: 20,
+    borderBottomRightRadius: 0,
   },
   botMessage: {
-    alignSelf: "flex-start", 
-    backgroundColor: "#e1e1e1", 
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    borderBottomRightRadius: 20,
+    alignSelf: "flex-start",
+    padding: 20,
+    backgroundColor: "#e0e0e0",
+    borderBottomLeftRadius: 0,
+  },
+  userTriangle: {
+    right: -10,
+    top: 15,
+    borderLeftWidth: 10,
+    borderLeftColor: "transparent",
+    borderRightWidth: 0,
+    borderTopWidth: 10,
+    borderTopColor: "#4caf50",
+  },
+  botTriangle: {
+    left: -10,
+    top: 15,
+    borderRightWidth: 10,
+    borderRightColor: "transparent",
+    borderLeftWidth: 0,
+    borderTopWidth: 10,
+    borderTopColor: "#e0e0e0",
   },
   messageText: {
     fontSize: 16,
     color: "#333",
-    lineHeight: 22,
   },
   inputContainer: {
-    borderTopLeftRadius: 20,
     flexDirection: "row",
     alignItems: "center",
     padding: 10,
     borderTopWidth: 1,
-    backgroundColor: "#D3D3D3",
-    borderTopColor: "#D3D3D3",
-    position: "absolute", 
-    bottom: 0,
-    left: 0,
-    right: 0,
-    zIndex: 10, 
+    borderTopColor: "#ccc",
+    backgroundColor: "#f9f9f9",
   },
   input: {
     flex: 1,
     height: 40,
-    borderColor: "#ddd",
     borderWidth: 1,
+    borderColor: "#ddd",
     borderRadius: 20,
-    paddingLeft: 15,
-    backgroundColor: "#f9f9f9", 
+    paddingLeft: 10,
+    backgroundColor: "#fff",
   },
   sendButton: {
     marginLeft: 10,
     padding: 10,
-    backgroundColor: theme.colors.color5, 
-    borderRadius: 25,
+    backgroundColor: "#4caf50",
+    borderRadius: 20,
   },
-  backButton: {
-    position: "absolute",
-    top: 35,
-    left: 8,
-    zIndex: 100,
-    backgroundColor: "rgba(0,0,0,0.5)",
-    borderRadius: 40,
-  },
-  icon: {
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 3
-  }
 });
