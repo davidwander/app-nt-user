@@ -17,7 +17,7 @@ import {
 
 // Importe as páginas para navegação
 import MyAppointments from "../app/myAppointments"
-import Chat from "../app/(tabs)/chat"
+import Chat from "./(tabs)/chat"
 import Search from "../app/(tabs)/search"
 import Scheduling from "../app/schedule"
 
