@@ -12,10 +12,9 @@ import {
   Platform,
   Keyboard,
 } from "react-native";
-import { Feather, FontAwesome } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 import { theme } from "../../theme";
-import { useNavigation } from "@react-navigation/native";
-
+import BackButton from "../../components/Goback";
 
 const messagesData = [
   { id: "1", text: "Oi! Como posso te ajudar?", sender: "bot" },
@@ -29,7 +28,6 @@ type Message = {
 }
 
 export default function Chat() {
-  const navigation = useNavigation();
   const [messages, setMessages] = useState(messagesData);
   const [messageText, setMessageText] = useState("");
 
@@ -67,17 +65,7 @@ export default function Chat() {
         style={styles.background}
         source={require("../../assets/images/bg1.jpeg")} 
       >
-        <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => navigation.goBack()}
-        >
-          <Feather 
-            name="chevron-left" 
-            size={32} 
-            color="white" 
-            style={styles.icon}
-          />
-        </TouchableOpacity>
+        <BackButton />
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
           style={styles.chatContainer}

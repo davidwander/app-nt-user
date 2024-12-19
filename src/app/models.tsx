@@ -1,26 +1,14 @@
-import { Feather } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
-import { ImageBackground, Text, StyleSheet, View, TouchableOpacity } from "react-native";
+import { ImageBackground, Text, StyleSheet, View } from "react-native";
+import BackButton from "../components/Goback";
 
 export default function Models(){
-  const navigation = useNavigation();
 
   return (
     <ImageBackground
       style={{ flex: 1 }}
       source={require("../assets/images/bg2.jpeg")}
     >
-      <TouchableOpacity
-        style={styles.backButton}
-        onPress={() => navigation.goBack()}
-      >
-        <Feather 
-          name="chevron-left" 
-          size={32} 
-          color="white" 
-          style={styles.icon}
-        />
-      </TouchableOpacity>
+      <BackButton />
       <View style={styles.content}>
         <Text style={styles.title}>Modelos aqui</Text>
       </View>

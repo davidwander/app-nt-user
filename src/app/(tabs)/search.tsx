@@ -1,26 +1,15 @@
-import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "expo-router";
-import { View, Text, StyleSheet, ImageBackground, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, ImageBackground } from "react-native";
+import BackButton from "../../components/Goback";
 
 export default function Search() {
-  const navigation = useNavigation();
 
   return (
     <ImageBackground
       style={{ flex: 1 }}
       source={require("../../assets/images/bg2.jpeg")}
     >
-      <TouchableOpacity
-        style={styles.backButton}
-        onPress={() => navigation.goBack()}
-      >
-        <Feather 
-          name="chevron-left" 
-          size={32} 
-          color="white" 
-          style={styles.icon}
-        />
-      </TouchableOpacity>
+      <BackButton />
       <View style={styles.container}>
         <Text style={styles.title}>Search</Text>
       </View>

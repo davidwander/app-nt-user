@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { Calendar, DateData, LocaleConfig } from "react-native-calendars";
 import { Feather } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import BackButton from "../components/Goback";
 
 import { ptBR } from "../utils/localeCalendarConfig";
 
@@ -32,7 +32,6 @@ const availableTimes = [
 ];
 
 export default function Schedule() {
-  const navigation = useNavigation();
   const [day, setDay] = useState<DateData>();
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
@@ -48,17 +47,7 @@ export default function Schedule() {
       style={styles.background}
       source={require("../assets/images/bg2.jpeg")}
     >
-      <TouchableOpacity
-        style={styles.backButton}
-        onPress={() => navigation.goBack()}
-      >
-        <Feather 
-          name="chevron-left" 
-          size={32} 
-          color="white" 
-          style={styles.icon}
-        />
-      </TouchableOpacity>
+      <BackButton />
       <View style={styles.content}>
         <Calendar
           style={styles.calendar}
@@ -184,8 +173,7 @@ const styles = StyleSheet.create({
   },
   calendar: {
     width: "100%",
-    marginTop: 40,
-    borderRadius: 10,
+    marginTop: 65,
   },
   timeSelection: {
     marginTop: 22,

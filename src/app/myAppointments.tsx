@@ -1,9 +1,7 @@
-import { Feather } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
-import { View, Text, StyleSheet, ImageBackground, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, ImageBackground } from "react-native";
+import BackButton from "../components/Goback";
 
 export default function MyAppointments(){
-  const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
@@ -11,17 +9,7 @@ export default function MyAppointments(){
         source={require("../assets/images/bg2.jpeg")}
         style={styles.background}
       >
-        <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => navigation.goBack()}
-        >
-          <Feather 
-            name="chevron-left" 
-            size={32} 
-            color="white" 
-            style={styles.icon}
-          />
-        </TouchableOpacity>
+        <BackButton />
         <View style={styles.content}>
           <Text style={styles.title}>Meus agendamentos aqui!!</Text>
         </View>
