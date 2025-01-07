@@ -75,7 +75,7 @@ export default function Home() {
       style={styles.background}
     >
       <View style={styles.header}>
-        <Image source={require("../../assets/images/nt-logo.png")}
+        <Image source={require("@/assets/images/nt-logo.png")}
         style={styles.imageHeader}
         />
       </View>
