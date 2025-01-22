@@ -13,8 +13,9 @@ import { Calendar, DateData, LocaleConfig } from "react-native-calendars";
 import { Feather } from "@expo/vector-icons";
 import BackButton from "../components/Goback";
 
-import { ptBR } from "../utils/localeCalendarConfig";
+import axios from "axios";
 
+import { ptBR } from "../utils/localeCalendarConfig";
 import { theme } from "../theme";
 
 LocaleConfig.locales["pt-br"] = ptBR;
@@ -36,10 +37,24 @@ export default function Schedule() {
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     setModalVisible(false);
-    // Aqui você pode adicionar a lógica para salvar ou enviar os dados do agendamento
-    console.log(`Agendamento confirmado: ${day?.dateString} às ${selectedTime}`);
+
+    if (day && selectedTime) {
+      const appointmentData = {
+        date: day.dateString,
+        time: selectedTime,
+      };
+
+      try {
+        const response = await axios.post("/api/appointments", appointmentData);
+        console.log("Agendamento enviado com sucesso:", response.data);
+        alert("Agendamento confirmado com sucesso!");
+      } catch (error) {
+        console.error("Erro ao enviar agendamento:", error);
+        alert("Erro ao confirmar agendamento. Tente novamente.");
+      }
+    }
   };
 
   return (
@@ -163,7 +178,10 @@ export default function Schedule() {
   );
 }
 
+// Estilos (não modificados para economizar espaço)
+
 const styles = StyleSheet.create({
+  // Os estilos são os mesmos já fornecidos.
   background: {
     flex: 1,
     padding: 10,

@@ -1,7 +1,31 @@
-import { View, Text, StyleSheet, ImageBackground } from "react-native";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { 
+  ImageBackground, 
+  View, 
+  Text, 
+  StyleSheet, 
+  ScrollView 
+} from "react-native";
 import BackButton from "../components/Goback";
 
-export default function MyAppointments(){
+export default function MyAppointments() {
+  const [appointments, setAppointments] = useState<
+    { id: string; date: string; time: string }[]
+  >([]);
+
+  useEffect(() => {
+    const fetchAppointments = async () => {
+      try {
+        const response = await axios.get("/api/appointments");
+        setAppointments(response.data);
+      } catch (error) {
+        console.error("Erro ao carregar agendamentos:", error);
+      }
+    };
+
+    fetchAppointments();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -11,45 +35,76 @@ export default function MyAppointments(){
       >
         <BackButton />
         <View style={styles.content}>
-          <Text style={styles.title}>Meus agendamentos aqui!!</Text>
+          <Text style={styles.title}>Meus Agendamentos</Text>
+          <ScrollView contentContainerStyle={styles.scrollContainer}>
+            {appointments.length > 0 ? (
+              appointments.map((appointment) => (
+                <View key={appointment.id} style={styles.card}>
+                  <Text style={styles.text}>
+                    Dia: {new Date(appointment.date).toLocaleDateString("pt-BR")}
+                  </Text>
+                  <Text style={styles.text}>Horário: {appointment.time}</Text>
+                </View>
+              ))
+            ) : (
+              <Text style={styles.noAppointmentsText}>
+                Nenhum agendamento encontrado.
+              </Text>
+            )}
+          </ScrollView>
         </View>
       </ImageBackground>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center"
   },
   background: {
     flex: 1,
-    width: "100%"
+    width: "100%",
   },
   content: {
     flex: 1,
-    justifyContent: "center",
+    paddingTop: 66,
+    paddingHorizontal: 20,
+    paddingVertical: 30,
     alignItems: "center",
-    padding: 20,
-    borderRadius: 10,
   },
   title: {
-    justifyContent: "center",
-    alignItems: "center"
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#94267e",
+    marginBottom: 20,
+    textAlign: "center",
   },
-  backButton: {
-    position: "absolute",
-    top: 35,
-    left: 8,
-    zIndex: 100,
-    backgroundColor: "rgba(0,0,0,0.5)",
-    borderRadius: 40,
-  },
-  icon: {
-    justifyContent: "center",
+  scrollContainer: {
     alignItems: "center",
-    padding: 3
-  }
-})
+    paddingBottom: 20,
+  },
+  card: {
+    width: "90%",
+    padding: 15,
+    marginVertical: 10,
+    backgroundColor: "#fff",
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 4,
+  },
+  text: {
+    fontSize: 16,
+    color: "#333",
+    marginBottom: 5,
+  },
+  noAppointmentsText: {
+    fontSize: 18,
+    color: "#717171",
+    textAlign: "center",
+    marginTop: 50,
+  },
+});
