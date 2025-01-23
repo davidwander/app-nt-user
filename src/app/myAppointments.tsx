@@ -1,15 +1,27 @@
-import { useAppointments } from "./context/AppointmentContext."; // Adjust path as needed
 import { 
   ImageBackground, 
   View, 
   Text, 
   StyleSheet, 
-  ScrollView 
+  ScrollView, 
+  TouchableOpacity 
 } from "react-native";
+import { Calendar, CheckCircle2 } from "lucide-react-native";
 import BackButton from "../components/Goback";
+import { useAppointments } from "./context/AppointmentContext.";
 
 export default function MyAppointments() {
   const { appointments } = useAppointments();
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("pt-BR", {
+      weekday: 'long',
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric'
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -19,21 +31,48 @@ export default function MyAppointments() {
       >
         <BackButton />
         <View style={styles.content}>
-          <Text style={styles.title}>Meus Agendamentos</Text>
-          <ScrollView contentContainerStyle={styles.scrollContainer}>
+          <View style={styles.headerContainer}>
+            <Calendar color="#94267e" size={24} />
+            <Text style={styles.title}>Meus Agendamentos</Text>
+          </View>
+
+          <ScrollView 
+            contentContainerStyle={styles.scrollContainer}
+            showsVerticalScrollIndicator={false}
+          >
             {appointments.length > 0 ? (
               appointments.map((appointment) => (
-                <View key={appointment.id} style={styles.card}>
-                  <Text style={styles.text}>
-                    Dia: {new Date(appointment.date).toLocaleDateString("pt-BR")}
-                  </Text>
-                  <Text style={styles.text}>Horário: {appointment.time}</Text>
-                </View>
+                <TouchableOpacity 
+                  key={appointment.id} 
+                  style={styles.appointmentCard}
+                >
+                  <View style={styles.appointmentCardContent}>
+                    <CheckCircle2 
+                      color="#4CAF50" 
+                      size={24} 
+                      style={styles.checkIcon} 
+                    />
+                    <View style={styles.appointmentDetails}>
+                      <Text style={styles.dateText}>
+                        {formatDate(appointment.date)}
+                      </Text>
+                      <Text style={styles.timeText}>
+                        Horário: {appointment.time}
+                      </Text>
+                    </View>
+                  </View>
+                </TouchableOpacity>
               ))
             ) : (
-              <Text style={styles.noAppointmentsText}>
-                Nenhum agendamento encontrado.
-              </Text>
+              <View style={styles.emptyState}>
+                <Calendar color="#94267e" size={64} />
+                <Text style={styles.noAppointmentsText}>
+                  Você ainda não possui agendamentos
+                </Text>
+                <Text style={styles.noAppointmentsSubtext}>
+                  Faça seu primeiro agendamento agora mesmo!
+                </Text>
+              </View>
             )}
           </ScrollView>
         </View>
@@ -42,11 +81,10 @@ export default function MyAppointments() {
   );
 }
 
-// Styles remain the same as in the previous implementation
 const styles = StyleSheet.create({
-  // ... (keep the existing styles)
   container: {
     flex: 1,
+    backgroundColor: 'transparent',
   },
   background: {
     flex: 1,
@@ -56,41 +94,73 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 66,
     paddingHorizontal: 20,
-    paddingVertical: 30,
-    alignItems: "center",
+    paddingVertical: 20,
+  },
+  headerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20,
+    gap: 10,
   },
   title: {
     fontSize: 24,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     color: "#94267e",
-    marginBottom: 20,
     textAlign: "center",
   },
   scrollContainer: {
-    alignItems: "center",
     paddingBottom: 20,
   },
-  card: {
-    width: "90%",
-    padding: 15,
-    marginVertical: 10,
-    backgroundColor: "#fff",
-    borderRadius: 10,
+  appointmentCard: {
+    backgroundColor: 'white',
+    borderRadius: 15,
+    marginBottom: 15,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
+    shadowOpacity: 0.1,
     shadowRadius: 4,
-    elevation: 4,
+    elevation: 3,
   },
-  text: {
+  appointmentCardContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 15,
+  },
+  checkIcon: {
+    marginRight: 15,
+  },
+  appointmentDetails: {
+    flex: 1,
+  },
+  dateText: {
     fontSize: 16,
+    fontWeight: '600',
     color: "#333",
     marginBottom: 5,
+    textTransform: 'capitalize',
+  },
+  timeText: {
+    fontSize: 14,
+    color: "#666",
+  },
+  emptyState: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 100,
+    padding: 20,
   },
   noAppointmentsText: {
-    fontSize: 18,
+    fontSize: 20,
+    fontWeight: '600',
+    color: "#94267e",
+    marginTop: 15,
+    textAlign: 'center',
+  },
+  noAppointmentsSubtext: {
+    fontSize: 16,
     color: "#717171",
-    textAlign: "center",
-    marginTop: 50,
+    marginTop: 10,
+    textAlign: 'center',
   },
 });
