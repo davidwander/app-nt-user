@@ -13,7 +13,8 @@ import { Calendar, DateData, LocaleConfig } from "react-native-calendars";
 import { Feather } from "@expo/vector-icons";
 import BackButton from "../components/Goback";
 
-import axios from "axios";
+//import axios from "axios";
+import { useAppointments } from "./context/AppointmentContext.";
 
 import { ptBR } from "../utils/localeCalendarConfig";
 import { theme } from "../theme";
@@ -33,22 +34,25 @@ const availableTimes = [
 ];
 
 export default function Schedule() {
+  const { addAppointment } = useAppointments();
   const [day, setDay] = useState<DateData>();
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleConfirm = async () => {
     setModalVisible(false);
-
+  
     if (day && selectedTime) {
       const appointmentData = {
         date: day.dateString,
         time: selectedTime,
       };
-
+  
       try {
-        const response = await axios.post("/api/appointments", appointmentData);
-        console.log("Agendamento enviado com sucesso:", response.data);
+        // Use addAppointment from the context
+        await addAppointment(appointmentData);
+        
+        console.log("Agendamento enviado com sucesso");
         alert("Agendamento confirmado com sucesso!");
       } catch (error) {
         console.error("Erro ao enviar agendamento:", error);

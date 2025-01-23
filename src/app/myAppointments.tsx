@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useAppointments } from "./context/AppointmentContext."; // Adjust path as needed
 import { 
   ImageBackground, 
   View, 
@@ -10,22 +9,7 @@ import {
 import BackButton from "../components/Goback";
 
 export default function MyAppointments() {
-  const [appointments, setAppointments] = useState<
-    { id: string; date: string; time: string }[]
-  >([]);
-
-  useEffect(() => {
-    const fetchAppointments = async () => {
-      try {
-        const response = await axios.get("/api/appointments");
-        setAppointments(response.data);
-      } catch (error) {
-        console.error("Erro ao carregar agendamentos:", error);
-      }
-    };
-
-    fetchAppointments();
-  }, []);
+  const { appointments } = useAppointments();
 
   return (
     <View style={styles.container}>
@@ -58,7 +42,9 @@ export default function MyAppointments() {
   );
 }
 
+// Styles remain the same as in the previous implementation
 const styles = StyleSheet.create({
+  // ... (keep the existing styles)
   container: {
     flex: 1,
   },

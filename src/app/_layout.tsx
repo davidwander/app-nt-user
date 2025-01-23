@@ -20,6 +20,7 @@ import MyAppointments from "../app/myAppointments"
 import Chat from "./(tabs)/chat"
 import Search from "../app/(tabs)/search"
 import Scheduling from "../app/schedule"
+import { AppointmentsProvider } from "./context/AppointmentContext."
 
 SplashScreen.preventAutoHideAsync()
 const Drawer = createDrawerNavigator()
@@ -60,49 +61,51 @@ export default function Layout() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <StatusBar
-        backgroundColor="transparent"
-        translucent={true}
-        barStyle="light-content"
-      />
-      {fontsLoaded && (
-        <Drawer.Navigator
-          initialRouteName="Inicio"
-          screenOptions={{
-            headerShown: false,
-            drawerStyle: {
-              backgroundColor: "transparent",
-            }
-          }}
-          drawerContent={(props) => <CustomDrawerContent {...props} />}
-        >
-          {/* Modifique para usar as páginas importadas diretamente */}
-          <Drawer.Screen
-            name="Inicio"
-            component={RenderSlot}
-          />
+      <AppointmentsProvider>
+        <StatusBar
+          backgroundColor="transparent"
+          translucent={true}
+          barStyle="light-content"
+        />
+        {fontsLoaded && (
+          <Drawer.Navigator
+            initialRouteName="Inicio"
+            screenOptions={{
+              headerShown: false,
+              drawerStyle: {
+                backgroundColor: "transparent",
+              }
+            }}
+            drawerContent={(props) => <CustomDrawerContent {...props} />}
+          >
+            {/* Modifique para usar as páginas importadas diretamente */}
+            <Drawer.Screen
+              name="Inicio"
+              component={RenderSlot}
+            />
 
-          <Drawer.Screen
-            name="Meus agendamentos"
-            component={MyAppointments}
-          />
-          
-          <Drawer.Screen
-            name="Mensagens"
-            component={Chat}
-          />
-          
-          <Drawer.Screen
-            name="Agendamento"
-            component={Scheduling}
-          />
+            <Drawer.Screen
+              name="Meus agendamentos"
+              component={MyAppointments}
+            />
+            
+            <Drawer.Screen
+              name="Mensagens"
+              component={Chat}
+            />
+            
+            <Drawer.Screen
+              name="Agendamento"
+              component={Scheduling}
+            />
 
-          <Drawer.Screen
-            name="Procurar"
-            component={Search}
-          />
-        </Drawer.Navigator>
-      )}
+            <Drawer.Screen
+              name="Procurar"
+              component={Search}
+            />
+          </Drawer.Navigator>
+        )}
+      </AppointmentsProvider>
     </GestureHandlerRootView>
   )
 }
