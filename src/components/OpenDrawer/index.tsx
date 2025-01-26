@@ -1,13 +1,14 @@
 import React from "react";
 import { TouchableOpacity, StyleSheet, ViewStyle } from "react-native";
+import { Feather } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import { ChartNoAxesGantt } from "lucide-react-native";
+import { DrawerActions } from "@react-navigation/native";
 
 interface BackButtonProps {
-  onPress?: () => void; // Função personalizada ao clicar
-  style?: ViewStyle; // Estilo personalizado do botão
-  iconColor?: string; // Cor do ícone
-  iconSize?: number; // Tamanho do ícone
+  onPress?: () => void;
+  style?: ViewStyle;
+  iconColor?: string;
+  iconSize?: number;
 }
 
 const BackButton: React.FC<BackButtonProps> = ({
@@ -18,12 +19,17 @@ const BackButton: React.FC<BackButtonProps> = ({
 }) => {
   const router = useRouter();
 
+  const handlePress = () => {
+    // Open drawer instead of going back
+    DrawerActions.openDrawer();
+  };
+
   return (
     <TouchableOpacity
       style={[styles.backButton, style]}
-      onPress={onPress || (() => router.back())} // Ação padrão: voltar
+      onPress={onPress || handlePress}
     >
-      <ChartNoAxesGantt size={iconSize} color={iconColor} />
+      <Feather name="chevron-left" size={iconSize} color={iconColor} />
     </TouchableOpacity>
   );
 };

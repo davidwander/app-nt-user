@@ -13,6 +13,7 @@ import { StyleSheet, View } from "react-native";
 import { theme } from "../../theme";
 
 import { Menu } from "../../components/Menu";
+import { CalendarCheck2, House, MessageSquareText, Search } from "lucide-react-native";
 
 export default function TabLayout() {
   const bottomSheetRef = useRef<BottomSheet>(null)
@@ -42,8 +43,7 @@ export default function TabLayout() {
           name="index"
           options={{
             tabBarIcon: ({ color }) =>
-              <Octicons
-                name="home"
+              <House
                 size={29}
                 color={color}
               />
@@ -53,8 +53,7 @@ export default function TabLayout() {
           name="menu"
           options={{
             tabBarIcon: ({ color }) =>
-              <Ionicons
-                name="calendar-outline"
+              <CalendarCheck2
                 size={30}
                 color={color}
               />
@@ -70,8 +69,7 @@ export default function TabLayout() {
           name="chat"
           options={{
             tabBarIcon: ({ color }) =>
-              <Ionicons
-                name="chatbox-ellipses-outline"
+              <MessageSquareText
                 size={31}
                 color={color}
               />
@@ -81,8 +79,7 @@ export default function TabLayout() {
           name="search"
           options={{
             tabBarIcon: ({ color }) => 
-              <Octicons
-                name="search"
+              <Search
                 size={30}
                 color={color}
               />

@@ -1,11 +1,11 @@
 import { forwardRef } from "react";
 import { View, ImageBackground, Text } from "react-native";
 import BottomSheet from "@gorhom/bottom-sheet";
-import { AntDesign, Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native"; 
 import { StackNavigationProp } from "@react-navigation/stack";
 import { MenuProps } from "./menu";
 import { styles } from "./styles";
+import { BadgeDollarSign, Calendar, Images, Minimize2, X } from "lucide-react-native";
 
 type RootStackParamList = {
   schedule: undefined;
@@ -41,32 +41,30 @@ export const Menu = forwardRef<BottomSheet, MenuProps>(({ onClose }, ref) => {
       >
         <View style={styles.content}>
           <View style={styles.header}>
-            <AntDesign
-              name="close"
-              size={26}
+            <Minimize2
+              size={30}
+              color="#000"
               onPress={onClose}
               style={styles.icon}
             />
             <View style={styles.iconContainer}>
-              <AntDesign
-                name="calendar"
-                size={30}
+              <Calendar
+                size={35}
                 color="#000"
                 onPress={handleNavigate} 
               />
               <Text style={styles.iconText}>Agendar</Text>
               
-                <Feather 
-                  name="list"
-                  size={30}
+                <Images
+                  size={35}
                   color="#000"
                   onPress={() => navigation.navigate("models")}
                 />
                 <Text style={styles.iconText}>Modelos</Text>
               
-                <Feather 
-                  name="dollar-sign"
-                  size={30}
+                <BadgeDollarSign
+                  size={38}
+                  color="#000"
                   onPress={() => navigation.navigate("payment") }
                 />
                 <Text>Sinal</Text>

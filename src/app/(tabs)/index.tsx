@@ -9,9 +9,9 @@ import {
   Linking,
   TouchableOpacity,
 } from "react-native"
-import { Fontisto, Feather } from "@expo/vector-icons"
 import { useNavigation } from "@react-navigation/native"
 import { DrawerNavigationProp } from "@react-navigation/drawer"
+import { ChartNoAxesGantt, Instagram } from "lucide-react-native"
  
 const { width } = Dimensions.get("window")
 
@@ -86,8 +86,7 @@ export default function Home() {
         />
       </View>
       <View style={styles.footer}>
-        <Fontisto
-          name="instagram"
+        <Instagram
           size={40}
           color="white"
           onPress={openInstagram}
@@ -97,9 +96,8 @@ export default function Home() {
         style={styles.drawerButton}
         onPress={() => navigation.openDrawer()}
       >
-        <Feather
-          name="menu"
-          size={38}
+        <ChartNoAxesGantt
+          size={40}
           color="white"
         />
       </TouchableOpacity>
