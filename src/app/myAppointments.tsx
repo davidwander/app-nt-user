@@ -105,6 +105,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
+    height: 28,
     fontWeight: 'bold',
     color: "#94267e",
     textAlign: "center",
@@ -152,6 +153,7 @@ const styles = StyleSheet.create({
   },
   noAppointmentsText: {
     fontSize: 20,
+    height: 26,
     fontWeight: '600',
     color: "#94267e",
     marginTop: 15,
@@ -161,6 +163,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#717171",
     marginTop: 10,
+    height: 24,
     textAlign: 'center',
   },
 });
